@@ -31,8 +31,10 @@ class RestApiBasic {
    * show() method for showing collection of data
    */
   async show({request, response}){
+    let result = {}
+    result.code = 200;
+    result.message = "Ok";
     try{
-      let result = {}
       let selectedTable = this.view || this.table
       // page, perpage, sort and fields are query string from url
       let page, perpage, sort, fields;
@@ -51,25 +53,43 @@ class RestApiBasic {
         .orderBy(sort[0], sort[1]) // sort[0] is the column name, sort[1] can be asc or desc
         .forPage(page, perpage); // paginate the result of collection data
       
+      if(result.total == 0){
+        result.code = 204;
+        result.message = "No Data";
+      }
+      
       // return the collection of data with other properties such as total, page, perpage, nextpage, prevpage and data itself as array of object
-      return response.json(result);
+      return response.status(200).json(result);
     }catch(e){
       console.log(e);
-      
+      result.code = 503;
+      result.message = e
       // any error will be catch on here
-      return response.status(503).json({result: false, error: e});
+      return response.status(result.code).json(result);
     }
   }
   async detail({params, response}){
+    let result = {}
+    result.code = 200;
+    result.message = "Ok";
     try{
-      const satuan = await Database.table(this.view || this.table).select().where(this.primaryKey, params.id).first();
-      return response.json(satuan);
+      result.data = await Database.table(this.view || this.table).select().where(this.primaryKey, params.id).first();
+      if(Object.keys(result.data) == 0){
+        result.code = 204;
+        result.message = "No Data";
+      }
+      return response.status(200).json(result);
     }catch(e){
       console.log(e);
-      return response.status(503).json({result: false, error: e});
+      result.code = 503;
+      result.message = e;
+      return response.status(503).json(result);
     }
   }
   async store({request, response}){
+    let result = {}
+    result.code = 201;
+    result.message = "Ok";
     try{
       const model = {};
       
@@ -83,13 +103,18 @@ class RestApiBasic {
         }
       })
       await Database.insert(model).into(this.table);
-      return response.status(201).json({result: true});
+      return response.status(result.code).json(result);
     }catch(e){
       console.log(e);
-      return response.status(503).json({result: false, error: e});
+      result.code = 503;
+      result.message = e;
+      return response.status(result.code).json(result);
     }
   }
   async update({request, response, params, session}){
+    let result = {}
+    result.code = 201;
+    result.message = "Ok";
     try{
       const data = request.post();
       let updated_data = {};
@@ -101,23 +126,30 @@ class RestApiBasic {
         }
       })
       await Database.table(this.table)
-        .where(this.model.primaryKey, params.id)
+        .where(this.primaryKey, params.id)
         .update(updated_data);
-      return response.status(200).json({result: true});
+      return response.status(result.code).json(result);
     }catch(e){
       console.log(e);
-      return response.status(503).json({result: false, error: e});
+      result.code = 503;
+      result.message = e;
+      return response.status(result.code).json(result);
     }
   }
   async remove({params, response}){
+    let result = {}
+    result.code = 204;
+    result.message = "Ok";
     try{
       await Database.table(this.table)
         .where(this.primaryKey, params.id)
         .delete();
-      return response.status(204).json({result: true});
+      return response.status(result.code).json(result);
     }catch(e){
       console.log(e);
-      return response.status(503).json({result: false, error: e});
+      result.code = 503;
+      result.message = e;
+      return response.status(503).json(result);
     }
   }
 }

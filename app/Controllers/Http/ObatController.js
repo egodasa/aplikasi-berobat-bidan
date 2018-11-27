@@ -17,7 +17,8 @@ class ObatController extends RestApiBasic {
       'id_jobat',
       'hrg_obat',
       'id_satuan_obat'
-    ]);
+    ],
+    'daftar_obat');
   }
 }
 
