@@ -43,7 +43,7 @@ Route.group(() => {
   Route.put('jenis-pengguna/:id', 'JenisPenggunaController.update').validator('StoreJenisPengguna');
   Route.delete('jenis-pengguna/:id', 'JenisPenggunaController.remove')
   
-  Route.get('jenis-satuan', 'JenisSatuanController.show').validator('ShowJenisPengguna');
+  Route.get('jenis-satuan', 'JenisSatuanController.show').validator('ShowJenisSatuan');
   Route.get('jenis-satuan/:id', 'JenisSatuanController.detail');
   Route.post('jenis-satuan', 'JenisSatuanController.store').validator('StoreJenisSatuan');
   Route.put('jenis-satuan/:id', 'JenisSatuanController.update').validator('StoreJenisSatuan');
@@ -51,8 +51,8 @@ Route.group(() => {
   
   Route.get('jenis-obat', 'JenisObatController.show').validator('ShowJenisObat');
   Route.get('jenis-obat/:id', 'JenisObatController.detail');
-  Route.post('jenis-obat', 'JenisObatController.store').validator('StoreJenisSatuan');
-  Route.put('jenis-obat/:id', 'JenisObatController.update').validator('StoreJenisSatuan');
+  Route.post('jenis-obat', 'JenisObatController.store').validator('StoreJenisObat');
+  Route.put('jenis-obat/:id', 'JenisObatController.update').validator('StoreJenisObat');
   Route.delete('jenis-obat/:id', 'JenisObatController.remove');
   
   Route.get('obat', 'ObatController.show').validator('ShowObat');

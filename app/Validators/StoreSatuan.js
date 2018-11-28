@@ -8,7 +8,8 @@ class StoreSatuan extends DefaultValidator {
   }
   get rules () {
     return {
-      nm_satuan: 'required|min:2|max:50'
+      nm_satuan: 'required|min:2|max:50',
+      id_jsatuan: 'required|integer',
     }
   }
 }
