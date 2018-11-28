@@ -8,7 +8,7 @@ class ShowJenisObat extends DefaultValidator {
     return {
       ...Pagination.DefaultRule, // Include page and perpage validation to numbers only
       sort: [
-          rule('regex', /^(asc|desc)\:(id_jobat|nm_jobat)$/)
+          rule('regex', /^(id_jobat|nm_jobat)\:(asc|desc)$/)
         ]
     }
   }

@@ -8,7 +8,7 @@ class ShowObat extends DefaultValidator {
     return {
       ...Pagination.DefaultRule, // Include page and perpage validation to numbers only
       sort: [
-          rule('regex', /^(asc|desc)\:(id_obat|nm_obat|stok|id_jobat|hrg_obat|id_satuan_obat)$/)
+          rule('regex', /^(id_obat|nm_obat|stok|id_jobat|hrg_obat|id_satuan_obat)\:(asc|desc)$/)
         ]
     }
   }

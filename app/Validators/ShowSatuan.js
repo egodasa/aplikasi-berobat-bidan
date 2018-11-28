@@ -8,7 +8,7 @@ class ShowSatuan extends DefaultValidator {
     return {
       ...Pagination.DefaultRule, // Include page and perpage validation to numbers only
       sort: [
-          rule('regex', /^(asc|desc)\:(id_satuan|nm_satuan)$/)
+          rule('regex', /^(id_satuan|nm_satuan)\:(asc|desc)$/)
         ]
     }
   }

@@ -8,7 +8,7 @@ class ShowJenisPengguna extends DefaultValidator {
     return {
       ...Pagination.DefaultRule, // Include page and perpage validation to numbers only
       sort: [
-          rule('regex', /^(asc|desc)\:(id_jpengguna|nm_jpengguna)$/)
+          rule('regex', /^(id_jpengguna|nm_jpengguna)\:(asc|desc)$/)
         ]
     }
   }
