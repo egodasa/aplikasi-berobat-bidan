@@ -14,7 +14,8 @@ class PenggunaController extends RestApiBasic {
     [
       'email',
       'id_jpengguna'
-    ]);
+    ],
+    'daftar_pengguna');
   }
 }
 

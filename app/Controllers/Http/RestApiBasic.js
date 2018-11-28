@@ -33,7 +33,7 @@ class RestApiBasic {
   async show({request, response}){
     let result = {}
     result.code = 200;
-    result.message = "Ok";
+    result.messages = "Ok";
     try{
       let selectedTable = this.view || this.table
       // page, perpage, sort and fields are query string from url
@@ -55,7 +55,7 @@ class RestApiBasic {
       
       if(result.total == 0){
         result.code = 204;
-        result.message = "No Data";
+        result.messages = "No Data";
       }
       
       // return the collection of data with other properties such as total, page, perpage, nextpage, prevpage and data itself as array of object
@@ -63,7 +63,7 @@ class RestApiBasic {
     }catch(e){
       console.log(e);
       result.code = 503;
-      result.message = e
+      result.messages = e
       // any error will be catch on here
       return response.status(result.code).json(result);
     }
@@ -71,50 +71,52 @@ class RestApiBasic {
   async detail({params, response}){
     let result = {}
     result.code = 200;
-    result.message = "Ok";
+    result.messages = "Ok";
     try{
       result.data = await Database.table(this.view || this.table).select().where(this.primaryKey, params.id).first();
       if(Object.keys(result.data) == 0){
         result.code = 204;
-        result.message = "No Data";
+        result.messages = "No Data";
       }
       return response.status(200).json(result);
     }catch(e){
       console.log(e);
       result.code = 503;
-      result.message = e;
+      result.messages = e;
       return response.status(503).json(result);
     }
   }
   async store({request, response}){
     let result = {}
     result.code = 201;
-    result.message = "Ok";
+    result.messages = "Ok";
     try{
       const model = {};
       
       const data = request.post();
-      
+      console.log(data);
       this.fieldsCreate.forEach(async (val)=>{
         if(val.includes('password')){
           model[val] = await Hash.make(data[val]);
+          console.log(model[val]);
         }else{
           model[val] = data[val];
         }
       })
+      console.log(model);
       await Database.insert(model).into(this.table);
       return response.status(result.code).json(result);
     }catch(e){
       console.log(e);
       result.code = 503;
-      result.message = e;
+      result.messages = e;
       return response.status(result.code).json(result);
     }
   }
   async update({request, response, params, session}){
     let result = {}
     result.code = 201;
-    result.message = "Ok";
+    result.messages = "Ok";
     try{
       const data = request.post();
       let updated_data = {};
@@ -132,14 +134,14 @@ class RestApiBasic {
     }catch(e){
       console.log(e);
       result.code = 503;
-      result.message = e;
+      result.messages = e;
       return response.status(result.code).json(result);
     }
   }
   async remove({params, response}){
     let result = {}
     result.code = 204;
-    result.message = "Ok";
+    result.messages = "Ok";
     try{
       await Database.table(this.table)
         .where(this.primaryKey, params.id)
@@ -148,7 +150,7 @@ class RestApiBasic {
     }catch(e){
       console.log(e);
       result.code = 503;
-      result.message = e;
+      result.messages = e;
       return response.status(503).json(result);
     }
   }

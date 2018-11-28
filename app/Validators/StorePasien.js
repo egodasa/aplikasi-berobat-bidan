@@ -1,7 +1,8 @@
 'use strict'
 const { rule } = require('indicative')
+const DefaultValidator = use('App/Validators/DefaultValidator')
 
-class StorePasien {
+class StorePasien extends DefaultValidator {
   get validateAll () {
     return true
   }
