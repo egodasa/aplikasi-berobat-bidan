@@ -1,6 +1,9 @@
 'use strict'
-
-class Pagination {
+/*
+ * This class defined default rules and message for pagination.
+ * It include page and perpage query string validation.
+ */
+class DefaultPaginationRules {
   static get DefaultRule () {
     return {
       perpage: "integer",
@@ -14,4 +17,4 @@ class Pagination {
     }
   }
 }
-module.exports = Pagination
+module.exports = DefaultPaginationRules
