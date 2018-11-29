@@ -13,7 +13,8 @@ class DefaultPaginationRules {
   static get DefaultMessages () {
     return {
       'perpage.integer': 'Query String perpage should be number.',
-      'page.integer': 'Query String page should be number.'
+      'page.integer': 'Query String page should be number.',
+      'sort.regex': 'Query String sort can be only "column_name:asc or column_name:desc"'
     }
   }
 }
