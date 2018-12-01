@@ -21,10 +21,10 @@ class PenggunaController extends RestApiBasic {
     ]
   }
   // Overide RestApiBasic method, because password should be hashed
-  async store({request, response}) {
-    let data = await RestApiHelper.sanitizeFields(request.post(), this.storeFields);
+  async dataStoreCallback(dataObject) {
+    let data = await RestApiHelper.sanitizeFields(dataObject, this.storeFields);
     data.password = await Hash.make(data.password);
-    return response.json(await this.store(this.table, data));
+    return data;
   }
 }
 

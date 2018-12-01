@@ -18,15 +18,21 @@ class RestApiBasic {
     return response.json(await RestApiMethod.detail(this.view || this.table, this.primaryKey, params.id));
   }
   async store({request, response}) {
-    let data = await RestApiHelper.sanitizeFields(request.post(), this.storeFields);
+    const data = await this.dataStoreCallback(request.post());
     return response.json(await RestApiMethod.store(this.table, data));
   }
   async update({request, response, params}) {
-    let data = await RestApiHelper.sanitizeFields(request.post(), this.updateFields || this.storeFields);
+    const data = await this.dataUpdateCallback(request.post());
     return response.json(await RestApiMethod.update(this.table, data, this.primaryKey, params.id));
   }
   async remove({response, params}) {
     return response.json(await RestApiMethod.remove(this.table, this.primaryKey, params.id));
+  }
+  async dataStoreCallback(data) {
+    return await RestApiHelper.sanitizeFields(data, this.storeFields);
+  }
+  async dataUpdateCallback(data) {
+    return await RestApiHelper.sanitizeFields(data, this.updateFields || this.storeFields);
   }
 }
 
