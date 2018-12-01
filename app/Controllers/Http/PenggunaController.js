@@ -1,21 +1,30 @@
 'use strict'
-const RestApiBasic = use('App/Controllers/Http/RestApiBasic')
+const RestApiBasic = use('App/Helper/RestApiBasic')
+const RestApiHelper = use('App/Helper/RestApiHelper') 
+const Hash = use('Hash')
 
 class PenggunaController extends RestApiBasic {
-  constructor(){
-    // Models name, array of fields for create, and array of fields for update
-    super('pengguna', 'id_pengguna',
-    [
+  constructor () {
+    super();
+    this.table = 'pengguna'
+    this.primaryKey = 'id_pengguna'
+    this.view = 'daftar_pengguna'
+    this.storeFields = [
       'username',
       'password',
       'email',
       'id_jpengguna'
-    ],
-    [
+    ]
+    this.updateFields = [
       'email',
       'id_jpengguna'
-    ],
-    'daftar_pengguna');
+    ]
+  }
+  // Overide RestApiBasic method, because password should be hashed
+  async store({request, response}) {
+    let data = await RestApiHelper.sanitizeFields(request.post(), this.storeFields);
+    data.password = await Hash.make(data.password);
+    return response.json(await this.store(this.table, data));
   }
 }
 

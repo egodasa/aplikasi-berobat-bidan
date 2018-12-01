@@ -1,9 +1,13 @@
 'use strict'
-const RestApiBasic = use('App/Controllers/Http/RestApiBasic') 
+const RestApiBasic = use('App/Helper/RestApiBasic') 
  
 class JenisSatuanController extends RestApiBasic{
-  constructor(){
-    super('jenis_satuan', 'id_jsatuan', ['nm_jsatuan'], ['nm_jsatuan']);
+  constructor () {
+    super();
+    this.table = 'jenis_satuan'
+    this.primaryKey = 'id_jsatuan'
+    this.view = 'daftar_obat'
+    this.storeFields = ['nm_jsatuan']
   }
 }
 
