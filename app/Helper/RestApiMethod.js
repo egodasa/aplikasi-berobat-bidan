@@ -47,14 +47,11 @@ class RestApiMethod {
         result.code = 204;
         result.messages = "No Data";
       }
-      
-      // return the collection of data with other properties such as total, page, perpage, nextpage, prevpage and data itself as array of object
       return result;
     }catch(e){
       console.log(e);
       result.code = 503;
       result.messages = e
-      // any error will be catch on here
       return result;
     }
   }
