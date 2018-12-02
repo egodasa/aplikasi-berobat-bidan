@@ -6,7 +6,7 @@ class KeranjangBeliObat extends RestApiBasic {
     super();
     this.table = 'beli_obat_detail_tmp'
     this.primaryKey = 'id_detail'
-    this.view = null
+    this.view = 'daftar_beli_obat_detail_tmp'
     this.storeFields = ['id_obat', 'jumlah','id_beli']
   }
   async detail({response, params}){

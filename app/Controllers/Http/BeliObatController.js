@@ -3,6 +3,13 @@ const Database = use('Database')
 const RestApiBasic = use('App/Helper/RestApiBasic')
 
 class BeliObat extends RestApiBasic {
+  constructor () {
+    super();
+    this.table = 'beli_obat'
+    this.primaryKey = 'id_beli'
+    this.view = null
+    this.storeFields = ['id_beli', 'waktu_beli']
+  }
   async store({request, response}){
     let result = {}
     result.code = 204;
