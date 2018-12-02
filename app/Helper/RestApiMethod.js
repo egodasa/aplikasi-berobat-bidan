@@ -122,6 +122,22 @@ class RestApiMethod {
       return result;
     }
   }
+  static async bulkDeletes(table, primaryKey, list_id){
+    let result = {}
+    result.code = 204;
+    result.messages = "Ok";
+    try{
+      await Database.table(table)
+        .whereIn(primaryKey, list_id)
+        .delete();
+      return result;
+    }catch(e){
+      console.log(e);
+      result.code = 503;
+      result.messages = e;
+      return result;
+    }
+  }
 }
 
 module.exports = RestApiMethod

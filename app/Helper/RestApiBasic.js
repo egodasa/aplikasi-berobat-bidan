@@ -28,6 +28,10 @@ class RestApiBasic {
   async remove({response, params}) {
     return response.json(await RestApiMethod.remove(this.table, this.primaryKey, params.id));
   }
+  async bulkDeletes({response, request}) {
+    const removed = request.post();
+    return response.json(await RestApiMethod.bulkDeletes(this.table, this.primaryKey, removed[this.primaryKey]));
+  }
   async dataStoreCallback(data) {
     return await RestApiHelper.sanitizeFields(data, this.storeFields);
   }
