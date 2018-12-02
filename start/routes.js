@@ -61,5 +61,18 @@ Route.group(() => {
   Route.put('obat/:id', 'ObatController.update').validator('StoreObat');
   Route.delete('obat/:id', 'ObatController.remove');
   
+  Route.get('keranjang-beli-obat', 'KeranjangBeliObatController.show');
+  Route.get('keranjang-beli-obat/:id', 'KeranjangBeliObatController.detail');
+  Route.post('keranjang-beli-obat', 'KeranjangBeliObatController.store');
+  Route.put('keranjang-beli-obat/:id', 'KeranjangBeliObatController.update');
+  Route.delete('keranjang-beli-obat/:id', 'KeranjangBeliObatController.remove');
+  
   Route.post('login', 'AutentikasiController.autentikasi');
+  
+  Route.get('beli-obat', 'BeliObatController.show');
+  Route.get('beli-obat/:id', 'BeliObatController.detail');
+  Route.post('beli-obat', 'BeliObatController.store');
+  Route.put('beli-obat/:id', 'BeliObatController.update');
+  Route.delete('beli-obat/:id', 'BeliObatController.remove');
+  
 }).prefix('api/v1')
